@@ -2,6 +2,7 @@ import os
 import pandas as pd
 import sys
 import time
+import random
 print('')
 # df = pd.read_csv('C:\\Users\\sahac\\PycharmProjects\\_pandas_teaching\\data\\titanic_kaggle\\train.csv')
 
@@ -265,3 +266,464 @@ _____________________________________________________________
 #         continue
 #     print('ALERT - сайт хуйня, блокируем ',a)
 
+'''
+ТЕМА: ЦИКЛЫ. FOR. 2026-05-09
+'''
+# напиши через while проверку пароля
+# correct_password = "slava_best"
+# while input('Введите пароль: ') != correct_password:
+#     print('Пароль неверный!')
+# print('Пароль верный!')
+
+
+# с помощью while в консоль числа от 0 до 10 включительно
+
+# def counter():
+#     n = int(input('Введите число: '))
+#     a = 0
+#     while a < n:
+#         print(a, end = ', ')
+#         a += 1
+#     print(n)
+
+
+# a = int(input('видите чесло: '))
+# while a < 100:
+#     print(a)
+#     a += 1
+
+# cocain_dose = [1, 2, 3, 4, 5, 6, 7, 8] 
+
+# print('\nЦИКЛ FOR')
+# for gramm in reversed(cocain_dose):
+#     print(f'ЗАНЮХНУЛ {gramm}-й грамм', end = ' |')
+#     time.sleep(0.2)
+#     print(random.choice(['ооо фкусна машала', 'ищо хочу', 'фхххххх sniff мммм', 'БОЛЬШЕ!!! БОЛЬШЕ!!!', 
+#                          'АААААА', 'Дозу Дозочку...', 'Press F']))
+    
+
+# a = 10
+# for i in reversed(range(a+1)): # 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+#     print(i, end = ', ')
+
+# Сколько человек в классе?
+# > 4
+# for / цикл 4 раза:
+    # Как зовут вашего одноклассника?
+    # > Имя
+# classmates = [Имя1, Имя2, Имя3, Имя4]
+
+
+
+# counts = int(input('Сколько человек в классе? '))
+# dickheads = []
+# for i in range(counts):     
+#     name = input('Как зовут вашего одноклассника? ')
+#     dickheads.append(name)
+    
+# print(dickheads)
+
+
+# for i in range(10):
+#     print('*' * i)
+
+
+
+# print(igor_list, id(igor_list))
+# igor_list[0] = 'S'
+# print(igor_list, id(igor_list))
+
+# числа, строчки, tuple, frozenset, → НЕ МЕНЯЮТСЯ, immutable
+# списки(массивы(list(листы))), множества (set), словарь (dict) → МЕНЯЮТСЯ, mutable
+
+# print('\nЦИКЛ WHILE')
+# while classmates:
+#     print(classmates.pop())
+    
+
+# for perem in classmates:
+#     print(perem)
+
+
+
+
+
+'''
+ТЕМА: ЦИКЛЫ. FOR. 2026-05-12
+'''
+
+
+# ВСЕ изменяемые объекты (т.е нехэшируемые объекты) КЛЮЧАМИ БЫТЬ НЕ МОГУТ.
+
+# мы берём хэш
+# Затем превращаем его в адрес памяти с помощью усечения (берем несколько цифр)
+# если место занято, то прибавляем к этому адресу i^2 (1^2 + 2^2... 
+# + 4 +9 + 16 + 25... пока не найдём свободную ячейку)
+# если мест нет или тяжело найти → питон расширяет словарь по памяти. 
+
+
+# неупорядоченная коллекция пар "ключ: значение"
+    # ключ - хэшируется, неизменяемый объект
+    # значение - пофиг. Список, число, другой словарь и.т.д
+
+# classmates_chlen_size = {'mulkadar': 'very big piska + ∞' , 'igor': 24, 'slava': 100, 'uzbek': 5}
+
+# for key in classmates_chlen_size:
+#     # 1-ая итерация: key = 'mulkadar', classmates['mulkadar'] = 'very big piska + ∞'
+#     # 2-ая итерация: key = 'igor', classmates['mulkadar'] = 24
+#     print(key, ": ", classmates_chlen_size[key], sep = '')
+#     # mulkadar: very big piska + ∞
+
+# for item in items: # for-each. Пробегаем по элементам
+#     print(item)
+
+# for index in range(len(items)): # for. Пробегаемся по индексам
+#     print(items[index])
+
+# students = {'slava':[5,5,5], 'igor':[2,2,3]}
+# # slava: 5.0, igor: 2.33
+
+# import statistics
+
+# for name in students:
+#     rate = students[name]
+
+#     # 2-ой вариант через sum
+#     # s = sum(rate) / len(rate)
+    
+#     # 3ий вариант через mean
+#     s = statistics.mean(rate)
+
+#     # 1-ый вариант через цикл
+#     # for mark in rate:
+#     #     s += mark
+
+#     print(name, ': ', s, sep = '')
+
+
+# a = [10,20,30]
+
+# WHILE 
+# ind = 0
+# fin = 0
+# while ind < len(a):
+#     print(a[ind])
+#     fin += a[ind]
+#     ind += 1
+# print(fin, fin / len(a))
+
+# FOR ИНДЕКСОВЫЙ
+# fin2 = 0
+# coll[ind]
+# [2,3,4] [0] = 2
+# coll ← [ind] = Дай мне элемент (coll) под номером = ind
+# coll[ind] из коллекции (coll) вытяни элемент с позицией (ind)
+# []
+
+# for s in range(len(a)): # (0,1,2) ТО ЖЕ САМОЕ что и [0,1,2]
+#     fin2 += a[s] #1) fin2 + a[0] = 0 + 10 = 10
+
+# print(fin2, fin2 / len(a))
+
+# FOR EACH
+# fin3 = 0
+
+# for s in a:  # s = 10,20,30
+#     fin3 += s
+# print(fin3, ', ', fin3/len(a), sep = '')
+
+# задача.
+# Сколько всего чисел?
+# > 5
+# Цикл 5 раз:
+    # 12
+    # 56
+    # 1
+    # 7
+    # 100
+# Программа выводит только четные числа
+# 12, 56, 100
+
+# n = int(input('Введите количество чисел: '))
+# mass = []
+# for a in range(n):
+#     us_num = int(input('Введите число: '))
+#     mass.append(us_num)
+
+# for a in mass:
+#     if a % 2 == 0:
+#         print(a)
+
+
+
+'''
+ТЕМА: ЦИКЛЫ. 2026-05-14
+'''
+
+# while
+    # - есть условие выхода из цикла
+    # - количество итераций незивестно
+    # - нам нужен бесконечный цикл
+    # - 
+# for
+    # each - по элементам коллекции проходимся
+    # индексовый / обычный - проходимся по индексам коллекции или просто N раз
+
+# Бесконечный цикл while
+# while True:
+#     print(1)
+
+# бесокнечный цикл for
+# from itertools import count
+
+# for i in count():
+#     if i == 10:
+#         break
+#     print(i)
+
+# for _ in iter(int, 1):
+#     pass
+
+# classmates = ['igor', 'mulkadar', 'slava', 'uzbek'] #
+
+# for ind in range(len(classmates)):
+#     if classmates[ind] == 'slava':
+#         print(ind+1, ' ← Вы нашли Славу!!!')
+
+# for people in classmates:
+#     print(people)
+
+
+# 10, 9 ... 0
+# st =  'slava pidor'
+# for a in st[::-1]:
+#     print(a)
+
+# чел вводит число. Число → [1,99]
+# вывести числа от 0 до этого числа
+# value = int(input('Enter your number: '))
+# for a in range(value):
+#     print(a, end = ', ')
+# print(value)
+
+
+'''
+ТЕМА: ЦИКЛЫ. 2026-05-20
+'''
+
+# Задача. Сделать массив чисел от -100 до 100
+# вывести в консоль все числа через цикл while / for / for-each
+
+
+# int('2'), str(123), float('1.2'), complex(), bool(2 > 5)
+# cheslo = 123456789
+# print(list([int(x) for x in str(cheslo)]))
+
+    
+# start = -100
+# stop = 100
+# step = 10
+# rng = list(range(start, stop + 1, step)) # range(-100, 101)
+# print(rng)
+
+
+# b = list(range(-100, 101, 1)) # [-100 ... 101]
+
+# for each
+# for ind in b:
+#     print(ind)
+
+# for индексовый. 0, 1... 201
+# for ind in range(len(b)):
+#     print(ind, b[ind]) # 0: -100, 1: -99 ... 200: 100
+
+# while индексовый
+# 0: -100, 1: -99, 2: -98 ... 199: 99, 200: 100
+
+# a = -100
+
+# while a <= len(b):
+#    a += 1
+#     print (a, b[a])
+
+# mas = [10,20,30,40,50,60,70,80,90,100]
+# # print(mas[::-1])
+
+# b = list(range(100,10, -1))
+# print(b)
+
+# for i in reversed(range(100,10,-1)):
+#     print(i)
+
+# Big O()
+# Big O(n)
+# import timeit
+
+# start = timeit.default_timer()
+
+# a = []
+# for i in range(1_000_000_0):
+#     a.append(i)
+#     for j in reversed(a):
+#         pass
+
+# end = timeit.default_timer()
+# print(f'{end-start} секунд')
+
+# тернирование
+# a = frozenset({1,2,3})
+# b = frozenset({1,2,3})
+# print(a == b, (a, b), (id(a), id(b)), sep = '\n')
+
+
+'''
+ Задача.
+ Пользователь вводит ширину, и длину
+ Нужно вывести квадрат N x M звездочек
+
+ Пример.
+ Ширина: >> 4
+ Длина: >> 3
+
+ Вывод:
+ * * *
+ * * *
+ * * * 
+ * * *
+'''
+
+# def draw(rows = 3, columns = 3, char = '*'):
+#     for row in range(rows): # кол-во строк
+#         for col in range(columns):# кол-во столбиков
+#             print(char, end=' ')
+#         print()
+
+# # rows = int(input(f'Введите ширину: '))
+# # columns = int(input(f'Введите длину: '))
+# rows = 3
+# columns = 3
+# draw(rows, columns, char = '卐')
+
+
+
+'''
+ТЕМА: ЦИКЛЫ. 2026-05-23
+'''
+
+коллекция = ['slava', 20, 'chlen', [2123,213,1], {'key':'value1'}, (2,46,7)]
+
+# # for each >>> elem
+# for элемент in коллекция:
+#     print(элемент)
+
+# # for index >>> index: elem
+# for индекс in range(len(коллекция)):
+#     print(индекс, ':', коллекция[индекс])
+
+# enumerate() - 
+# index, value = (0, 'God')
+
+# коллекция = {'slava', 20, 'chlen', (2,46,7)}
+
+
+# for index, value in enumerate(коллекция):
+#     print(index, value) 
+
+# def enumerate_by_slava(collection):
+#     idx = 0
+#     for elem in collection:
+#         idx += 1
+#         yield idx, elem
+    
+# print('\n\n СЛАВИН КРУТОЙ ВЫВОД')
+# for index, value in enumerate_by_slava(коллекция):
+#     print(index,value)
+
+
+'''
+«Расшифровка послания»
+
+Вы нашли старый свиток, на котором записаны важные слова, но некоторые буквы заменены на символ "?".
+Каждое слово в свитке пронумеровано (начиная с 1).
+
+Чтобы прочитать секретное послание, нужно:
+    1. Пройтись по всем словам (список строк).
+    2. Если в слове есть символ "?", заменить "?" на его порядковый номер в слове.
+
+    
+Вход:
+    words = [
+    "с?оват?",
+    "python",
+    "за?ифро?ан?",
+    "код",
+    "?????"
+]
+
+✅ ожидаемый результат 
+['с1оват6', 'python', 'за2ифро7ан10', 'код', '01234']
+'''
+
+# words = [
+#     "с?оват?",
+#     "python",
+#     "за?ифро?ан?",
+#     "код",
+#     "?????"
+# ]
+
+# for index, word in enumerate(words):
+#     char = list(word)
+#     for ind, val in enumerate(char): # ind = (7, '?')
+#         if val == '?':
+#             char[ind] = str(ind)
+#     words[index] = "".join(char)
+# print(words)
+
+
+# '12313'
+# 32345
+# 312.3
+# 2 + 4j
+# Decimal(2,3)
+# Fraction(1,3)
+# [1,2,3]
+# {2,4,1}
+# {2:2, 1:1}
+# frozenset([1,2,3])
+# (1,2,3)
+
+
+
+# [1,2, [3,[1],[2,2][0]]] # П×
+# {1:'', print:'', print('hello'):''} # П× И×?
+# {1,2, enumerate} # П✓ И✓ ALERT
+# a = dict({1,2,3})
+# print(type(a))
+# (1,2,[1,2,{3:3}], dict({})) # П× У
+
+
+'''
+Неизменяемые:
+- числа (int, float, complex, bool, decimal, fraction)
+- строки
+- frozen: set, dict
+- tuple
+- range, bytes
+- синглотоны: None, NE, ...
+- datetime
+регулярк, енам... 
+
+'''
+
+'''
+изменяемые:
+- коллекци
+- листы, словари, множества 
+- bytearray
+- deque, counter, orderedict (defaultdict)
+'''
+
+'''
+ТЕМА: ЦИКЛЫ. 2026-05-
+'''
