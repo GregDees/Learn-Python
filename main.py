@@ -1,9 +1,11 @@
 import copy
+import tqdm
 import os
 import pandas as pd
 import sys
 import time
 import random
+import numpy as np
 print('')
 # df = pd.read_csv('C:\\Users\\sahac\\PycharmProjects\\_pandas_teaching\\data\\titanic_kaggle\\train.csv')
 
@@ -854,21 +856,21 @@ dct = {1:'value', 'key':'value'} # дикт, словарь,
 # def remove_dubl(inv): # НЕ ИМЕЕТ СМЫСЛА
 #     return set(inv) # вернуть нужно множество(inv)
 
-inv0 = ['Острота 5', 'Острота 5', 'Добыча 3']
-inv1 = ['Острота 5', 
-       'Добыча 3', 
-       'Заговор огня 2', 
-       'Прочность 3', 
-       'Добыча 3', 
-       'Заговор огня 2', 
-       'Прочность 3']
+# inv0 = ['Острота 5', 'Острота 5', 'Добыча 3']
+# inv1 = ['Острота 5', 
+#        'Добыча 3', 
+#        'Заговор огня 2', 
+#        'Прочность 3', 
+#        'Добыча 3', 
+#        'Заговор огня 2', 
+#        'Прочность 3']
 
-# цена дома = возраст дома + площадь + расстояние до метро + наличие школы рядом + дата ремонта
-# price_house = x*age + y*square + z*distance + n*school + t*repair
+# # цена дома = возраст дома + площадь + расстояние до метро + наличие школы рядом + дата ремонта
+# # price_house = x*age + y*square + z*distance + n*school + t*repair
 
-print('\tОтвет: ', set(inv0))
-print('\tОтвет: ', set(inv1))
-print()
+# print('\tОтвет: ', set(inv0))
+# print('\tОтвет: ', set(inv1))
+# print()
 
 # Слава лизал писю
 # Мнькь нз.ьн язмй 
@@ -900,7 +902,7 @@ print()
 
 # 1, 2, 3
 
-a = [1,2,3]
+# a = [1,2,3]
 # a.pop() / append()
 
 # бинарный поиск
@@ -910,3 +912,103 @@ a = [1,2,3]
 '''
 ТЕМА: Бинарный поиск, наш первый алгоритм. 2026-06-
 '''
+# print('igor')
+
+
+# def get_first(arr): # O(1)
+#     return arr[0]
+
+# def find_element(arr, target): # O(N), где N = колво элементов в коллекции
+#     for idx, elem in enumerate(arr):
+#         if elem == target:
+#             return idx
+#     print('анлак братан, ниче не нашел')
+
+# def bubble_sort(arr):
+#     n = len(arr)
+#     for i in range(n): # O(n^2)
+#         for j in range(n-i-1):
+#             if arr[j] > arr[j+1]:
+#                 arr[j], arr[j+1] = arr[j+1], arr[j]
+#     return arr
+# print(bubble_sort([5,8,1,7,9,312,-2,215,671]))
+
+# Задача 1. Нужно сказать, есть ли нужное число в массиве или нет
+
+# def has_number(arr, target): # O(N)
+#     # return True - если есть число, иначе return False
+#     for num in arr:
+#         if num == target:
+#             return True
+#     return False
+
+# print(has_number([1,2,5,-1,-7,8,22], 5))
+# print(has_number([1,2,5,-1,-7,8,22], 521))
+# print(has_number([1], 1))
+# print(has_number([1], 2))
+
+
+# Задача 2. «Два цикла подряд
+# Алгоритм сначала выводит все элементы списка, а затем считает их сумму.
+
+# def print_and_sum(arr):
+#     start = time.perf_counter()
+    
+#     # for num in tqdm.tqdm(arr, desc = 'Выполняю'):
+#     #     s += num
+#     print(*arr, sep = ', ', end = '')
+#     print(' / Σ =', np.sum(arr)) # O(N) - самый быстрый вариант. 
+#     # Занимает оч много места
+#     print('время выполнения =', time.perf_counter() - start)
+
+# print_and_sum([1,2,3,4,5])
+# print_and_sum([5,-5])
+# print_and_sum([0,0,0,1])
+# print_and_sum(np.random.randint(0,100, size = 1000000000))
+
+# распаковка словарей
+# a = {'1':'saga', '2':'value'}
+# print(*a, *a.values())
+
+# Задача 3. Вложенные циклы
+# def print_pairs(arr1, arr2):
+#     # нужно вернуть все переборы пар
+#     # arr1 = [1,2,3], arr2 = [4,5,6]
+#     # нужно вывести в консоль
+#     # print(" ".join([str((first,second,)) for first in arr1  for second in arr2]))
+#     # print("\n".join(
+#     #     " ".join(str(p) for p in [(first, second) for first in arr1 for second in arr2][i:i+len(arr1)])
+#     #     for i in range(0, len([(first, second) for first in arr1 for second in arr2]), len(arr1))
+#     # )) - DEEPSEEK наколякал
+#     for first in arr1:
+#         for second in arr2:
+#             print((first, second,), end = ' ')
+#         print()
+#     print()
+
+# print_pairs([1,2,3], [4,5,6]) # N * N = 3^2 = 9
+# print_pairs([1,2,3], [4,5,6,7,8]) # N * M = 3 * 5 = 15
+
+# проверка учителя
+
+
+# def teacher_func(arr, char):
+#     count = 0
+#     for elem in arr:
+#         # if elem == str(elem):
+#         if isinstance(elem, str):
+#             count += elem.count(char)
+#     return f'count({char}) = {count}'
+
+# функции могут возвращать None (return None либо БЕЗ return -> 
+    # функции питон по умолчанию возвращают None), 
+    # либо пустоту (return ''), 
+    # либо что-то
+print(print('ass'))
+# ass
+# None
+
+# a = ['slovo1',1,5,1,57,1,2, 'slava', 'okolo']
+# print(teacher_func(a, 'o')) # count 'o' = ?
+
+a =[]
