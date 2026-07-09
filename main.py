@@ -6,6 +6,16 @@ import sys
 import time
 import random
 import numpy as np
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib.animation import FuncAnimation
+from IPython.display import HTML
+from decimal import Decimal
+from fractions import Fraction
+import sklearn
+import math
+
 print('')
 # df = pd.read_csv('C:\\Users\\sahac\\PycharmProjects\\_pandas_teaching\\data\\titanic_kaggle\\train.csv')
 
@@ -17,8 +27,8 @@ print('')
 # boolean - True/False, Правда или Ложь
 # set - множество 
 
-from decimal import Decimal
-from fractions import Fraction
+
+
 
 
 
@@ -779,26 +789,26 @@ _____________________________________________________________
     # hash(слава) = 1234, hash(слава) = 1234
 # 2. хэш заданной длины (32 к примеру)
 # 3. важен порядок во входе
-text1 = 'слава' # (45, 20, 5, 7, 5) = суммируем
-text2 = 'славА' # (45, 20, 5, 7, 80)
+# text1 = 'слава' # (45, 20, 5, 7, 5) = суммируем
+# text2 = 'славА' # (45, 20, 5, 7, 80)
 
 # def hash_igor_sum(data):
 #     return sum([ord(x) + data.index(x) * len(data)^2 for x in data])
 # 1543908498745897
 # 
-def hash_igor(data):
-    result = 0
-    for i, ch in enumerate(data):
-        result = (result * 31 + ord(ch)) % (10**9)
-    return result
+# def hash_igor(data):
+#     result = 0
+#     for i, ch in enumerate(data):
+#         result = (result * 31 + ord(ch)) % (10**9)
+#     return result
 
 # 120, 56, 1, 100, 253, 24, 21 - ИЗОБРАЖЕНИЕ
 # 1920 * 1080 ~ = 2000 * 1000 = 2000000 / 4 = 500.000 арифметических усреднений
 # ср.арифм1 (сумма первых 4 пикселей / 4), ср.арифм2
 # print(hash_igor('слава'), hash_igor('славА'))
 
-a = 'слава'
-b = 'слава'
+# a = 'слава'
+# b = 'слава'
 # хэширование - перевод объекта в понятную ячейку памяти
 # хэш уникален для каждого объекта, два разных объекта с одинаковым хешом не существует
 # хэш помогает заполнять ячейки памяти + защищать данные т.к хеш обратным ходом не взломать
@@ -809,7 +819,7 @@ b = 'слава'
 
 # === КОЛЛЕКЦИИ ===
 
-lst = [1,2,3] # список, лист. 
+# lst = [1,2,3] # список, лист. 
 # - итерируемый. (элементы имеют индекс 0, 1, 2 и.т.д)
 # - изменяемый (muttable). коллекция может изменяться
 # - нехэшируемый. Могут храниться одинаковые элементы 
@@ -817,16 +827,16 @@ lst = [1,2,3] # список, лист.
 # print(lst[0])
 # lst.insert(1, 1.5)
 # print(lst)
-tp = (1,2) # кортеж, тюпл
+# tp = (1,2) # кортеж, тюпл
 # тот же лист (список), но фиксированный
 
-st = {1,2,3} # сет, множество
+# st = {1,2,3} # сет, множество
 # - неитерируемый. А КАК ИТЕРИРОВАТЬ ПО РАЗРОЗНЕННЫМ ЯЧЕЙКАМ ПАМЯТИ, 
 #       они находятся в разных местах памяти из за хеша
 # - изменяемый (muttable)
 # - хэшируемый. ТОЛЬКО уникальные элементы
 
-dct = {1:'value', 'key':'value'} # дикт, словарь, 
+# dct = {1:'value', 'key':'value'} # дикт, словарь, 
     # хэш-таблица (неправильно, но так говорят)
 
 '''
@@ -1313,3 +1323,562 @@ dct = {1:'value', 'key':'value'} # дикт, словарь,
 # print(fact(3)) # 6, 4! = 24, 5! = 120, 6! = 720
 # print(fact(6)) # 6! = 6*5*4*3*2 = 2*3*4*5*6 = 
 
+
+
+# Генерация данных для двухмерной регрессии
+# np.random.seed(42)
+# n_samples = 100
+
+# # Создаем два признака
+# X1 = np.random.randn(n_samples) * 2
+# X2 = np.random.randn(n_samples) * 1.5
+
+# # Истинные коэффициенты
+# true_w1 = 2.5
+# true_w2 = -1.8
+# true_b = 3.0
+
+# # Целевая переменная с шумом
+# noise = np.random.randn(n_samples) * 0.5
+# y = true_w1 * X1 + true_w2 * X2 + true_b + noise
+
+# # Нормализация данных (для лучшей сходимости)
+# X1_norm = (X1 - np.mean(X1)) / np.std(X1)
+# X2_norm = (X2 - np.mean(X2)) / np.std(X2)
+# y_norm = (y - np.mean(y)) / np.std(y)
+
+# # Добавляем столбец единиц для свободного члена
+# X = np.column_stack([np.ones(n_samples), X1_norm, X2_norm])
+# y = y_norm.reshape(-1, 1)
+
+# # Функция для вычисления ошибки (MSE)
+# def compute_cost(X, y, theta):
+#     m = len(y)
+#     predictions = X @ theta
+#     cost = (1/(2*m)) * np.sum((predictions - y)**2)
+#     return cost
+
+# # Функция градиентного спуска
+# def gradient_descent(X, y, theta, learning_rate, iterations):
+#     m = len(y)
+#     cost_history = np.zeros(iterations)
+#     theta_history = np.zeros((iterations, 3))
+    
+#     for i in range(iterations):
+#         predictions = X @ theta
+#         errors = predictions - y
+#         gradient = (1/m) * (X.T @ errors)
+#         theta = theta - learning_rate * gradient
+        
+#         cost_history[i] = compute_cost(X, y, theta)
+#         theta_history[i] = theta.flatten()
+    
+#     return theta, cost_history, theta_history
+
+# # Параметры градиентного спуска
+# theta_initial = np.array([[0.0], [0.0], [0.0]])
+# learning_rate = 0.3
+# iterations = 50
+
+# # Запускаем градиентный спуск
+# theta_final, cost_history, theta_history = gradient_descent(
+#     X, y, theta_initial, learning_rate, iterations
+# )
+
+# print("=== Результаты обучения ===")
+# print(f"Истинные коэффициенты (нормализованные):")
+# print(f"w1: {true_w1 * np.std(y)/np.std(X1):.4f}")
+# print(f"w2: {true_w2 * np.std(y)/np.std(X2):.4f}")
+# print(f"b: {true_b + np.mean(y) - true_w1*np.mean(X1)/np.std(X1)*np.std(y) - true_w2*np.mean(X2)/np.std(X2)*np.std(y):.4f}")
+# print(f"\nОбученные коэффициенты (нормализованные):")
+# print(f"theta0 (b): {theta_final[0][0]:.4f}")
+# print(f"theta1 (w1): {theta_final[1][0]:.4f}")
+# print(f"theta2 (w2): {theta_final[2][0]:.4f}")
+# print(f"\nИтоговая ошибка: {cost_history[-1]:.6f}")
+
+# # Создаем графики
+# fig = plt.figure(figsize=(15, 12))
+
+# # 1. График сходимости ошибки
+# ax1 = fig.add_subplot(2, 3, 1)
+# ax1.plot(range(iterations), cost_history, 'b-', linewidth=2)
+# ax1.set_xlabel('Итерация')
+# ax1.set_ylabel('Ошибка (MSE)')
+# ax1.set_title('Сходимость градиентного спуска')
+# ax1.grid(True, alpha=0.3)
+
+# # 2. Траектория theta1 и theta2
+# ax2 = fig.add_subplot(2, 3, 2)
+# ax2.plot(theta_history[:, 1], theta_history[:, 2], 'r-', linewidth=2, label='Путь градиентного спуска')
+# ax2.scatter(theta_history[:, 1], theta_history[:, 2], c=range(iterations), 
+#            cmap='viridis', s=20, alpha=0.6)
+# ax2.scatter(theta_final[1], theta_final[2], c='red', s=100, marker='*', 
+#            label='Оптимум', edgecolors='black')
+# ax2.set_xlabel('theta1')
+# ax2.set_ylabel('theta2')
+# ax2.set_title('Траектория параметров')
+# ax2.legend()
+# ax2.grid(True, alpha=0.3)
+
+# # 3. 3D поверхность ошибки с траекторией
+# ax3 = fig.add_subplot(2, 3, 3, projection='3d')
+
+# # Создаем сетку для поверхности ошибки
+# theta1_range = np.linspace(theta_history[:, 1].min()-1, theta_history[:, 1].max()+1, 30)
+# theta2_range = np.linspace(theta_history[:, 2].min()-1, theta_history[:, 2].max()+1, 30)
+# T1, T2 = np.meshgrid(theta1_range, theta2_range)
+
+# # Фиксируем theta0 на финальном значении
+# theta0_fixed = theta_final[0][0]
+# cost_surface = np.zeros_like(T1)
+# for i in range(T1.shape[0]):
+#     for j in range(T1.shape[1]):
+#         theta_temp = np.array([[theta0_fixed], [T1[i,j]], [T2[i,j]]])
+#         cost_surface[i,j] = compute_cost(X, y, theta_temp)
+
+# # Рисуем поверхность
+# surf = ax3.plot_surface(T1, T2, cost_surface, alpha=0.6, cmap='viridis', 
+#                         linewidth=0, antialiased=True)
+
+# # Рисуем траекторию на поверхности
+# cost_trajectory = np.array([compute_cost(X, y, theta.reshape(-1, 1)) for theta in theta_history])
+# ax3.plot(theta_history[:, 1], theta_history[:, 2], cost_trajectory, 
+#         'r-', linewidth=2, label='Путь градиентного спуска')
+# ax3.scatter(theta_history[:, 1], theta_history[:, 2], cost_trajectory, 
+#            c=range(iterations), cmap='viridis', s=20, alpha=0.6)
+
+# ax3.set_xlabel('theta1')
+# ax3.set_ylabel('theta2')
+# ax3.set_zlabel('Ошибка')
+# ax3.set_title('Поверхность ошибки и траектория')
+# ax3.view_init(elev=30, azim=45)
+# ax3.legend()
+
+# # 4. График предсказаний vs реальных значений
+# ax4 = fig.add_subplot(2, 3, 4)
+# predictions = X @ theta_final
+# ax4.scatter(y, predictions, alpha=0.6, color='blue')
+# ax4.plot([y.min(), y.max()], [y.min(), y.max()], 'r--', linewidth=2, label='Идеальное предсказание')
+# ax4.set_xlabel('Реальные значения')
+# ax4.set_ylabel('Предсказанные значения')
+# ax4.set_title('Предсказания vs Реальные значения')
+# ax4.legend()
+# ax4.grid(True, alpha=0.3)
+
+# # 5. График ошибок по итерациям (log scale)
+# ax5 = fig.add_subplot(2, 3, 5)
+# ax5.semilogy(range(iterations), cost_history, 'g-', linewidth=2)
+# ax5.set_xlabel('Итерация')
+# ax5.set_ylabel('Ошибка (log scale)')
+# ax5.set_title('Сходимость (логарифмическая шкала)')
+# ax5.grid(True, alpha=0.3)
+
+# # 6. 3D график данных и плоскости регрессии
+# ax6 = fig.add_subplot(2, 3, 6, projection='3d')
+
+# # Исходные данные
+# ax6.scatter(X1, X2, y, c='blue', alpha=0.5, label='Данные')
+
+# # Плоскость регрессии
+# x1_plane = np.linspace(X1.min(), X1.max(), 20)
+# x2_plane = np.linspace(X2.min(), X2.max(), 20)
+# X1_plane, X2_plane = np.meshgrid(x1_plane, x2_plane)
+
+# # Нормализуем для плоскости
+# X1_plane_norm = (X1_plane - np.mean(X1)) / np.std(X1)
+# X2_plane_norm = (X2_plane - np.mean(X2)) / np.std(X2)
+# y_plane = theta_final[0] + theta_final[1] * X1_plane_norm + theta_final[2] * X2_plane_norm
+# y_plane = y_plane * np.std(y) + np.mean(y)  # Денормализуем
+
+# ax6.plot_surface(X1_plane, X2_plane, y_plane, alpha=0.5, color='red', label='Плоскость регрессии')
+# ax6.set_xlabel('X1')
+# ax6.set_ylabel('X2')
+# ax6.set_zlabel('y')
+# ax6.set_title('Данные и плоскость регрессии')
+# ax6.view_init(elev=25, azim=45)
+
+# plt.tight_layout()
+# plt.show()
+
+# # Анимация градиентного спуска
+# fig_anim = plt.figure(figsize=(10, 8))
+# ax_anim = fig_anim.add_subplot(111, projection='3d')
+
+# # Создаем поверхность ошибки
+# theta1_range_anim = np.linspace(theta_history[:, 1].min()-0.5, theta_history[:, 1].max()+0.5, 20)
+# theta2_range_anim = np.linspace(theta_history[:, 2].min()-0.5, theta_history[:, 2].max()+0.5, 20)
+# T1_anim, T2_anim = np.meshgrid(theta1_range_anim, theta2_range_anim)
+# cost_surface_anim = np.zeros_like(T1_anim)
+# for i in range(T1_anim.shape[0]):
+#     for j in range(T1_anim.shape[1]):
+#         theta_temp = np.array([[theta0_fixed], [T1_anim[i,j]], [T2_anim[i,j]]])
+#         cost_surface_anim[i,j] = compute_cost(X, y, theta_temp)
+
+# surf = ax_anim.plot_surface(T1_anim, T2_anim, cost_surface_anim, alpha=0.5, cmap='viridis')
+# point, = ax_anim.plot([], [], [], 'ro', markersize=8, label='Текущая точка')
+# path, = ax_anim.plot([], [], [], 'r-', alpha=0.5, linewidth=1)
+
+# def update(frame):
+#     ax_anim.clear()
+#     ax_anim.plot_surface(T1_anim, T2_anim, cost_surface_anim, alpha=0.5, cmap='viridis')
+    
+#     # Рисуем путь до текущей итерации
+#     if frame > 0:
+#         path_data = theta_history[:frame+1]
+#         ax_anim.plot(path_data[:, 1], path_data[:, 2], 
+#                     cost_history[:frame+1], 'r-', alpha=0.6, linewidth=2)
+    
+#     # Текущая точка
+#     current_theta = theta_history[frame]
+#     current_cost = cost_history[frame]
+#     ax_anim.scatter(current_theta[1], current_theta[2], current_cost, 
+#                    color='red', s=80, edgecolors='black', zorder=5)
+    
+#     ax_anim.set_xlabel('theta1')
+#     ax_anim.set_ylabel('theta2')
+#     ax_anim.set_zlabel('Ошибка')
+#     ax_anim.set_title(f'Градиентный спуск (итерация {frame+1}/{iterations})')
+#     ax_anim.view_init(elev=25, azim=45)
+#     return point,
+
+# # Создаем анимацию
+# anim = FuncAnimation(fig_anim, update, frames=iterations, interval=200, blit=False)
+# plt.close()
+
+# # Отображаем анимацию в Jupyter notebook
+# from IPython.display import HTML
+# HTML(anim.to_html5_video())
+
+# # Вывод прогресса обучения
+# print("\n=== Прогресс обучения ===")
+# print(f"Начальная ошибка: {cost_history[0]:.6f}")
+# print(f"Конечная ошибка: {cost_history[-1]:.6f}")
+# print(f"Уменьшение ошибки: {cost_history[0]/cost_history[-1]:.2f}x")
+# print(f"\nИтоговые коэффициенты:")
+# print(f"theta0 (свободный член): {theta_final[0][0]:.4f}")
+# print(f"theta1: {theta_final[1][0]:.4f}")
+# print(f"theta2: {theta_final[2][0]:.4f}")
+
+'''
+09.07.2026. ФУНКЦИИ, ПАРАМЕТРЫ
+'''
+
+# def func_name():
+#     pass
+
+# для прототипирования используем
+# ... - ellipsis.  Это объект
+# pass - то же самое, только это действие в духе for
+
+# def func():
+#     return 1,2 # return может возвращать несколько значений через запятую - это кортеж
+
+# print(func(), type(func()))
+
+# ОБЛАСТИ ВИДИМОСТИ. SCOPE
+# a = 3
+# def is_even(number): # функции - отдельные области видимости
+#     b = 4
+#     number = 2
+
+# ( a = 3 [is_even|number=2] )
+# коробка в коробке. Из наружней коробки мы не можем трогать вещи из внутренних коробок
+
+
+# def f1():
+#     global x
+#     x += 1
+#     print(f'функция вызывалась {x} раз')
+
+# x = 0
+# for i in range(3):
+#     f1()
+
+
+# 1. Нельзя обращаться к переменным из наружних областей видимости. Снаружи к внутри НЕЛЬЗЯ
+# 2. Изнутри можно обращаться к переменным снаружи, НО
+    # 3. Эти переменные менять нельзя.
+        # Пункт 3 можно законтрить с помощью global var_name внутри функции
+
+# реализация без global
+# def f1(x):
+#     x += 1
+#     print(f'функция вызывалась {x} раз')
+#     return x
+
+# x = 0
+# for i in range(3):
+#     x = f1(x)
+
+# a = 0
+# def f1():
+#     b = 2
+#     print(a) # >>> 2
+#     def f15():
+#         a = 3
+#         def f2():
+#             nonlocal b
+#             print(b) # >>> 3
+#         f2()
+#     f15()
+    
+# f1()
+# nonlocal - идет изнутри наружи, перебирая области видимости (коробочки), пока не найдет нужный элемент
+    # глобальную коробку ИГНОРИРУЕТ
+# global - игнорирует локальные области видимости, ищет в глобальном scope
+
+# CORRECT  = 'qwerty'
+
+# def check_password(pas):
+#     # БЕЗ global изменить correct НЕЛЬЗЯ
+#     return pas == CORRECT
+
+# pas_user = '123'
+
+# print(check_password(pas_user)) # False
+
+# области видимости работают только с функциями, классами и модулями. 
+# В for мы можем обращаться изнутри наружу и снаружи внутрь
+# for i in range(3):
+#     a = 3
+#     for j in range(3):
+#         b = 4
+#     print(b)
+
+# print(a)
+
+# sum(5) # берет не из текущего файла, а из билтинс (внешней области)
+# порядок поиска переменной или функции следующий
+# твой_файл -> built_ins
+# print(dir(__builtins__)) # какой-то модуль. 
+
+# global str - меняем бога
+# def str(*args):
+#     return '.!.'
+
+# print(__builtins__.str(2)) # обращение к глобальной функции билтинса str
+
+# a = [1,2,3]
+
+# def f1(ls):
+#     ls.append(4) # изменили ОРИГИНАЛ
+
+# f1(a)
+# print(a) # 1,2,3,4
+
+# global, nonlocal нужны для работы с неизменяемыми типами данных immutable
+# MUTABLE объекты меняются всегда: И при передаче в параметре, И при обращении к глобальным переменным
+
+'''
+ПАРАМЕТРЫ В ФУНКЦИЯХ
+'''
+
+# параметры, аргументы. 
+
+# ================================
+# 1. Позиционные
+# def final_price(price, discount):
+#     return price - price * discount / 100 # подсчет скидки
+
+# print(final_price(100, 10)) # > 90
+# print(final_price(10, 100)) # > 0
+
+
+# такой тип передачи параметров/аргументов называется позиционнным.
+# Позиционные параметры - передают по позициями во время вызова
+
+# ================================
+# 2. Параметры с умолчанием
+# def final_price(price = 100, discount = 10):
+#     return price - price * discount / 100 # подсчет скидки
+
+# print(final_price(100)) # >> 90
+# print(final_price(50)) # >> 45
+# print(final_price(50, 20)) # >> 40
+# print(final_price()) # >> 90
+# print(final_price(discount=20)) # price = 100 по умолчанию
+# параметры задаются по умолчанию, если ничего не передано
+
+# ================================
+# 3. Именованные параметры
+# def final_price(price = 100, discount = 10):
+#     return price - price * discount / 100 # подсчет скидки
+
+# d = 20
+# print(final_price(discount=d)) # передаем значения по имени, пропуская ряд параметров
+
+# # примеры
+
+# print("something", '', '','','gagaga','a',2,5,6,2.4) # *value - упаковывает все аргументы в один кортеж
+# # до end или sep мы не можем достучаться. 
+#     # если именованнй параметр находится справа от *param, он называется "только именованный"
+
+# def f1(p1,p2): # p1 и p2 И позиционные, И именованные
+#     pass
+
+# f1(p2 = 5, p1 = 7) # именованный способ вызова
+# f1(5,7) # позиционный
+
+# def f2(*p1,p2):
+#     pass
+
+# f2(2,5,51,4,5,66,5,4,4,4, p2 = 5) # в этом случае, p2 -> ТОЛЬКО ИМЕНОВАННЫЙ
+
+# def human_bark(bark = 'гав'):
+#     print(bark,bark,bark)
+
+# human_bark() # для русского человека
+# human_bark('trame') # для француза лай = trame
+
+# КОГДА ПАРАМЕТР С УМОЛЧАНИЕМ ОПАСЕН и как это фиксить
+# def add_value(x, ls = []):
+#     # print(id(ls))
+#     ls += [x]
+#     return ls
+
+# print(add_value(228)) # создается новым пустой список [], id = 11
+# print(id([1,2,3]), id(add_value(4,[1,2,3]))) # [1,2,3,4]
+# print(add_value(1)) # обращаемся к старому [] с id = 11, но в списке с id = 11 лежит 228.
+# print(add_value(1337)) # [1]
+# print(add_value(5,[1,2,3])) # 1,2,3,4,5 // 1,2,3,5
+
+# def add_value(x, ls = None):
+#     if ls is None:
+#         ls = [] # при первом же вызове функции мы создаем пустой список
+#     ls += [x]
+#     return ls
+
+# print(add_value(1)) # [1]
+# print(add_value(2)) # [2]
+# print(add_value(3)) # [3]
+# print(add_value(4,[1,2,3]))
+# print(add_value(5,[1,2,3]))
+
+# 1. инициализируй коллекцию любый НЕизменяемыым объектом (число, None, ..., строка и.т.д)
+# 2. сделай if на то, что оно является этой херней if col is None
+    # 3. если является, значит мы должны создать новую коллецкию # col = [] ИЛИ col = {} или col = dict()
+# иначе меняем переданную
+
+# ================================
+# 4. Произвольные позиционные параметры
+# как принять неизвестное количество аргументов? 
+# def func0(ls_param: list):
+#     for param in ls_param:
+#         print(param)
+
+# a = [1,2,3]
+# print(['','221','sa']) # как бы это выглядело в принте
+
+# def func(*args): # Звездочка * запаковывает всю хуйню в кортеж.
+#     # она просто как мразь все хавает, и упаковывает в одну коллекцию
+#     # print(args, type(args))
+#     for param in args:
+#         print(param)
+
+# func(1,2, 'asda')
+
+# def func(named_param = '.!.', *args):  
+#     # named_param можно изменить только через обращение по имени
+#     for param in args:
+#         print(param)
+#     print('named: ', named_param)
+
+# func(2, 'asda', '...')
+
+# параметры слева от *args - позиционные И именованные
+# параметры справа от *args - ТОЛЬКО именованные
+
+# def func(p1, *args, p_named, p_default = 'default'):
+#     # p1 - позиционный
+#     # args - произвольный позиционный
+#     # p_named - именованный
+#     # p_default - именованный с умолчанием
+#     for param in args:
+#         print(param, end=' ')
+#     print('\np1 = ', p1)
+#     print('pnamed =', p_named)
+
+# func('p1', 1,2,3,4, p_named=10)
+
+# ==========================
+# ПОРЯДОК ПАРАМЕТРОВ
+
+'''
+def func(позиционные, *произвольные, именованные_по_умолчанию, **произвольные_именованные):
+    pass
+    '''
+# пример правильной сигнатуры функции
+# def func(a,b, *args, flag, c=10, mode='r', **kwargs):
+#     print(f'a={a}, b={b}, c={c}, args={args}, flag={flag}, mode={mode}, kwargs={kwargs}')
+
+# func(1,2,3,4,5,flag = True, x=100, y=200)
+
+# ==========================
+# 5. Произвольные именованные параметры
+# def func(**kwargs):
+#     # print(kwargs['penis_size']) - это обычный словарь
+#     for key, value in kwargs.items():
+#         print(key, '=', value)
+
+# func(a = 5, key = 'pisa', height = 171, penis_size = '7 cm')
+
+# def func(*args, **kwargs):
+#     for arg in args:
+#         print(arg, end = ' ')
+#     # for k, v in kwargs.items():
+#     #     print(k,'=',v,end=' / ')
+#     # for key in kwargs: # альтернативный способ итерации по kwargs
+#     #     print(key, '=', kwargs[key])
+
+# func(1,2,3,4,5, named_default=1, a='ag', key = 'value', penis = '10cm')
+
+# ==========================
+# 6. Аргументы высшего порядка (функции)
+
+# def only_pos(x):
+#     return x > 0
+
+# print(only_pos(7), only_pos)
+
+# result = filter(only_pos, [-1,5,6,-10,0])
+# print(', '.join(str(x) for x in result))
+
+
+# def obertka_gav(func):
+#     print(f'гав. Вы вызвали функцию {func}, результат func = {func()}')
+
+# def return_10():
+#     return 10
+
+# obertka_gav(return_10)
+
+# Такую штуку используют декораторы
+
+
+
+# def log_dec(func):
+#     def wrapper(*args):
+#         print(f'Вызваная функция: {func.__name__}')
+#         print(f'Аргументы args = {args}')
+#         print('гав гав')
+#         return func(*args)
+#     return wrapper
+
+
+# # sumd = log_dec(sum)
+# # igor = log_dec(len)
+# # print(sumd([1,2,3,4,123,414]))
+# # print(igor([0,0,0]))
+
+# @log_dec
+# def hello(name):
+#     print('Привет,',name)
+
+# hello('Игорь')
+
+
+'''
+. Лямбда, рекурсия, декораторы
+'''
+# ==============================
+# 7. Лямбда
